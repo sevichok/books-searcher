@@ -1,56 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import { fetchBooks } from './redux/action-creator';
+import { Book } from './redux/slice';
 
-function App() {
+const App = () => {
+  const [input, setInput] = useState<string>('')
+  const [list, setList] = useState<Book[] | []>([])
+  const dispatch = useAppDispatch()
+  const { books, loading, error } = useAppSelector(state => state.booksReducer)
+
+
+  useEffect(() => {
+    setList(books)
+    console.log(books)
+  }, [books])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <h3>Books Searcher</h3>
+      <input type='text' value={input} onChange={(e) => setInput(e.target.value)}></input>
+      <button onClick={() => dispatch(fetchBooks(input))}>search</button>
+      {loading && <h6>loading...</h6>}
+      {error && <h6>error</h6>}
+      {list.map(book => <div key={book.id}>
+        <h4>{book.volumeInfo.title}</h4>
+        <h6>{book.volumeInfo.subtitle}</h6>
+        <h6>{book.volumeInfo.authors}</h6>
+        <h6>{book.volumeInfo.publishedDate}</h6>
+        <h6>{book.volumeInfo.description}</h6>
+      </div>)}
     </div>
   );
 }
