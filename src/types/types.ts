@@ -10,8 +10,8 @@ export type Book = {
     categories?: string[];
     description?: string;
     imageLinks?: {
-      thumbnail : string
-    }
+      thumbnail: string;
+    };
   };
 };
 export type BooksState = {
@@ -19,6 +19,7 @@ export type BooksState = {
   loading: boolean;
   error: null | string;
   totalItems: number;
+  filter: string;
 };
 
 export type Schema = {

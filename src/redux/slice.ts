@@ -7,6 +7,7 @@ const initialState: BooksState = {
   totalItems: 0,
   loading: false,
   error: "",
+  filter: "all",
 };
 
 export const booksSlice = createSlice({

@@ -63,17 +63,34 @@ h1,h2,h3,h4,h5,h6 {
   gap: 10px;
 }
 .list-item {
-  width: 180px;
+  width: 200px;
   border: 1px solid black;
   border-radius: 4px;
   height: fit-content;
   min-height: 420px;
   box-sizing: border-box;
-  padding: 10px 10px;
+  padding: 10px 0px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 240px;
+  height: 40%;
+  padding: 10px 10px;
+  background-color: rgba(34, 32, 32, 0.15);
+}
+.info-container {
+  padding: 0px 10px;
+  margin-top: auto;
+}
+
 .footer {
   padding: 10px;
 }
