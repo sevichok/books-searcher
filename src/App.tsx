@@ -8,24 +8,26 @@ import Header from './components/Header';
 import ListContainer from './components/ListContainer';
 import ListItem from './components/ListItem';
 import InfoPanel from './components/InfoPanel';
+import { selectBooksByFilter, selectFilter, selectInfo } from './redux/selector';
 
 const App = () => {
   const [input, setInput] = useState<string>('')
   const [list, setList] = useState<Book[] | []>([])
   const [results, setResults] = useState<number>(0)
-  const dispatch = useAppDispatch()
-  const { books, loading, error, totalItems } = useAppSelector(state => state.booksReducer)
 
+  const dispatch = useAppDispatch()
+
+  const books = useAppSelector(selectBooksByFilter)
+  const { loading, error, totalItems } = useAppSelector(selectInfo)
+  const filter = useAppSelector(selectFilter)
 
   useEffect(() => {
     setList(books)
-    setResults(books.length)
-    // console.log(books)
+    setResults(books?.length)
   }, [books])
 
   const loadMore = () => {
     setResults(prev => prev + 30)
-    // console.log(results)
     dispatch(loadingMoreBooks({ input, results }))
   }
 
@@ -43,7 +45,7 @@ const App = () => {
           <button onClick={() => dispatch(fetchBooks({ input }))}>Search</button>
         </div>
       </Header>
-      <InfoPanel error={error} loading={loading} list={list} totalItems={totalItems} results={results} />
+      <InfoPanel error={error} loading={loading} filterValue={filter} list={list} totalItems={totalItems} results={results} />
       <ListContainer>
         {list ? list?.map((book) => <ListItem key={book.id} {...book} />) : <Alert />}
       </ListContainer>

@@ -16,11 +16,13 @@ export type Book = {
 };
 export type BooksState = {
   books: Book[];
+};
+export type InfoState = {
   loading: boolean;
   error: null | string;
   totalItems: number;
-  filter: string;
 };
+// export type FilterState = { filter: string };
 
 export type Schema = {
   data: {

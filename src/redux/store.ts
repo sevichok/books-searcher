@@ -1,22 +1,19 @@
-import {
-  configureStore,
-  ThunkAction,
-  Action,
-  combineReducers,
-} from "@reduxjs/toolkit";
-import booksReducer from "./slice";
-
-export const rootReducer = combineReducers({
-  booksReducer,
-});
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import booksReducer from "./booksSlice";
+import filterReducer from "./filterSlice";
+import infoReducer from "./infoSlice";
 
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    books: booksReducer,
+    info: infoReducer,
+    filter: filterReducer,
+  },
   devTools: true,
 });
 
 export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,

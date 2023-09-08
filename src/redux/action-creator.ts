@@ -14,7 +14,7 @@ export const fetchBooks = createAsyncThunk<[Book[], number], Props>(
     try {
       const link = `https://www.googleapis.com/books/v1/volumes?q=${input}&maxResults=30&key=${API_KEY}`;
       const { data } = await axios.get<Schema>(link);
-      console.log(data);
+      // console.log(data);
       return [data.items, data.totalItems];
     } catch (error) {
       return thunkAPI.rejectWithValue("Failed to fetch books");
