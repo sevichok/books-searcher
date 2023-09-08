@@ -5,10 +5,10 @@ import { changeFilter } from '../redux/filterSlice';
 import { changeSort } from '../redux/sortSlice';
 
 type Props = {
-    loading: boolean, error: string | null, list: Book[] | [], totalItems: number, results: number, filterValue: string
+    loading: boolean, error: string | null, list?: Book[] | [], totalItems: number, results: number, filterValue?: string
 }
 
-const InfoPanel: React.FC<Props> = ({ loading, error, list, totalItems, results, filterValue }) => {
+const InfoPanel: React.FC<Props> = ({ loading, error, totalItems, results }) => {
 
     const dispatch = useAppDispatch()
 

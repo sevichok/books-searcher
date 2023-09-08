@@ -68,19 +68,6 @@ export const selectBooksByFilter = createSelector(
           book.volumeInfo.categories[0] === "Comics & Graphic Novels"
         );
       });
-    } else if (sort === "relevance") {
-      return books;
-    } else if (sort === "newest") {
-      return books
-        .filter((book) => {
-          return book.volumeInfo.publishedDate !== undefined;
-        })
-        .sort((a: Book, b: Book) => {
-          return (
-            Number(b.volumeInfo?.publishedDate.split("-")[0]) -
-            Number(a.volumeInfo?.publishedDate.split("-")[0])
-          );
-        });
     } else return books;
   }
 );

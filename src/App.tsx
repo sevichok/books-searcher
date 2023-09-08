@@ -8,7 +8,7 @@ import Header from './components/Header';
 import ListContainer from './components/ListContainer';
 import ListItem from './components/ListItem';
 import InfoPanel from './components/InfoPanel';
-import { selectBooksByFilter, selectFilter, selectInfo } from './redux/selector';
+import { selectBooksByFilter, selectSort, selectInfo } from './redux/selector';
 
 const App = () => {
   const [input, setInput] = useState<string>('')
@@ -19,7 +19,26 @@ const App = () => {
 
   const books = useAppSelector(selectBooksByFilter)
   const { loading, error, totalItems } = useAppSelector(selectInfo)
-  const filter = useAppSelector(selectFilter)
+  const sort = useAppSelector(selectSort)
+
+  const sorting = (books: Book[], sort: string) => {
+    if (sort === "relevance") {
+      return books;
+    } else if (sort === "newest") {
+      return books
+        .filter((book) => {
+          return book.volumeInfo.publishedDate !== undefined;
+        })
+        .sort((a: Book, b: Book) => {
+          return (
+            Number(b.volumeInfo?.publishedDate.split("-")[0]) -
+            Number(a.volumeInfo?.publishedDate.split("-")[0])
+          );
+        });
+    }
+  }
+  const sortedList = sorting(books, sort)
+
 
   useEffect(() => {
     setList(books)
@@ -45,9 +64,9 @@ const App = () => {
           <button onClick={() => dispatch(fetchBooks({ input }))}>Search</button>
         </div>
       </Header>
-      <InfoPanel error={error} loading={loading} filterValue={filter} list={list} totalItems={totalItems} results={results} />
+      <InfoPanel error={error} loading={loading} totalItems={totalItems} results={results} />
       <ListContainer>
-        {list ? list?.map((book) => <ListItem key={book.id} {...book} />) : <Alert />}
+        {sortedList ? sortedList?.map((book) => <ListItem key={book.id} {...book} />) : <Alert />}
       </ListContainer>
       {totalItems - results <= 1 || <div className='footer'>
         {list?.length ? <button onClick={loadMore}>Load more</button> : null}

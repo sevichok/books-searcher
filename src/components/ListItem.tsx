@@ -10,11 +10,9 @@ const ListItem: React.FC<Book> = ({ volumeInfo, selfLink }) => {
             </div>
             <h4 style={{padding:'10px 10px'}}>{volumeInfo.title}</h4>
             <div className='info-container'>
-                {/* <h4>{volumeInfo.title}</h4> */}
                     <h5>{volumeInfo.authors?.join(', ')}</h5>
                     <h6>{volumeInfo.subtitle}</h6>
                     <h6>{volumeInfo.publishedDate}</h6>
-                {/* <h6><a href={selfLink} target='_blank' rel='noreferrer'>Link</a></h6> */}
             </div>
 
         </div>
