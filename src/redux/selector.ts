@@ -5,10 +5,11 @@ import { RootState } from "./store";
 export const selectAllBooks = (state: RootState): Book[] => state.books.books;
 export const selectFilter = (state: RootState): string => state.filter;
 export const selectInfo = (state: RootState): InfoState => state.info;
+export const selectSort = (state: RootState): string => state.sort;
 
 export const selectBooksByFilter = createSelector(
-  [selectAllBooks, selectFilter],
-  (books, filter) => {
+  [selectAllBooks, selectFilter, selectSort],
+  (books, filter, sort) => {
     if (filter === "All") {
       return books;
     } else if (filter === "Art") {
@@ -67,6 +68,19 @@ export const selectBooksByFilter = createSelector(
           book.volumeInfo.categories[0] === "Comics & Graphic Novels"
         );
       });
+    } else if (sort === "relevance") {
+      return books;
+    } else if (sort === "newest") {
+      return books
+        .filter((book) => {
+          return book.volumeInfo.publishedDate !== undefined;
+        })
+        .sort((a: Book, b: Book) => {
+          return (
+            Number(b.volumeInfo?.publishedDate.split("-")[0]) -
+            Number(a.volumeInfo?.publishedDate.split("-")[0])
+          );
+        });
     } else return books;
   }
 );
