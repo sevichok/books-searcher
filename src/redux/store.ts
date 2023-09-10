@@ -3,6 +3,7 @@ import booksReducer from "./booksSlice";
 import filterReducer from "./filterSlice";
 import infoReducer from "./infoSlice";
 import sortReducer from "./sortSlice";
+import bookReducer from "./bookSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     info: infoReducer,
     filter: filterReducer,
     sort: sortReducer,
+    book: bookReducer,
   },
   devTools: true,
 });

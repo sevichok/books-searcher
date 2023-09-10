@@ -1,18 +1,23 @@
+export type Info = {
+  title: string;
+  authors: string[];
+  publishedDate: string;
+  language: string;
+  subtitle?: string;
+  categories?: string[];
+  description?: string;
+  loading?: boolean;
+  imageLinks?: {
+    thumbnail: string;
+    large?: string;
+    medium?: string;
+    small?: string;
+  };
+};
 export type Book = {
   id: string;
   selfLink: string;
-  volumeInfo: {
-    title: string;
-    authors: string[];
-    publishedDate: string;
-    language: string;
-    subtitle?: string;
-    categories?: string[];
-    description?: string;
-    imageLinks?: {
-      thumbnail: string;
-    };
-  };
+  volumeInfo: Info;
 };
 export type BooksState = {
   books: Book[];
