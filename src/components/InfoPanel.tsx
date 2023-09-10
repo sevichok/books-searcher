@@ -27,7 +27,6 @@ const InfoPanel: React.FC<Props> = ({ loading, error, totalItems, results }) => 
             {totalItems <= 0 ? <h3>Total items: 0</h3> : <h3>Total items: {totalItems - 1}</h3>}
             {!results ? <h3>Total results on page: 0</h3> : <h3>Total results on page: {results}</h3>}
             {<div className='select-panel'>
-                {/* <h3>Filtered by: </h3> */}
                 <select name="filter" id="filter-select" onChange={handleChangeFilter}>
                     <option value="All">All</option>
                     <option value="Art">Art</option>
@@ -39,7 +38,6 @@ const InfoPanel: React.FC<Props> = ({ loading, error, totalItems, results }) => 
                     <option value="Philosophy">Philosophy</option>
                     <option value="Comics & Graphic Novels">Comics & Graphic Novels</option>
                 </select>
-                {/* <h3>Sorted by: </h3> */}
                 <select name="sort" id="sort-select" onChange={handleChangeSort}>
                     <option value="relevance">Relevance</option>
                     <option value="newest">Newest</option>

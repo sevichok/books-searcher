@@ -4,13 +4,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const API_KEY = "AIzaSyBx6tEQHCYPanyWYPLqeE6WfNZ09aRbTnE";
 
-type Props = {
-  input: string;
-};
-
-export const fetchBooks = createAsyncThunk<[Book[], number], Props>(
+export const fetchBooks = createAsyncThunk<[Book[], number], string>(
   "fetchingBooks",
-  async ({ input }, thunkAPI) => {
+  async ( input , thunkAPI) => {
     try {
       const link = `https://www.googleapis.com/books/v1/volumes?q=${input}&maxResults=30&key=${API_KEY}`;
       const { data } = await axios.get<Schema>(link);
@@ -34,7 +30,6 @@ export const loadingMoreBooks = createAsyncThunk<Book[], loadProps>(
         results + 1
       }&key=${API_KEY}`;
       const { data } = await axios.get<Schema>(link);
-      console.log(data);
       return data.items;
     } catch (error) {
       return thunkAPI.rejectWithValue("Failed to fetch books");
@@ -48,10 +43,9 @@ export const bookDataFetch = createAsyncThunk<Book, string>(
     try {
       const link = `https://books.googleapis.com/books/v1/volumes/${id}?key=${API_KEY}`;
       const { data } = await axios.get<Book>(link);
-      console.log(data)
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue("Failed to fetch books");
+      return thunkAPI.rejectWithValue("Failed to fetch book");
     }
   }
 );

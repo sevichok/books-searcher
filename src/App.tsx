@@ -58,10 +58,10 @@ const App = () => {
           <input type='text' value={input} onChange={(e) => setInput(e.target.value)}
             onKeyUp={e => {
               if (e.key === 'Enter') {
-                dispatch(fetchBooks({ input }))
+                dispatch(fetchBooks(input))
               }
             }}></input>
-          <button onClick={() => dispatch(fetchBooks({ input }))}>Search</button>
+          <button onClick={() => dispatch(fetchBooks(input))}>Search</button>
         </div>
       </Header>
       <InfoPanel error={error} loading={loading} totalItems={totalItems} results={results} />

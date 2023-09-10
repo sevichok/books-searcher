@@ -27,7 +27,6 @@ export type InfoState = {
   error: null | string;
   totalItems: number;
 };
-// export type FilterState = { filter: string };
 
 export type Schema = {
   data: {
